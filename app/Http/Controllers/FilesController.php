@@ -11,9 +11,6 @@ class FilesController extends Controller
     public function store(FileRequest $request): JsonResponse
     {
         $file = $request->file('file');
-        $contents = file_get_contents($file->getRealPath());
-        $uuid = $request->get('uuid');
-
         $fileType = $this->getFileType($file->getClientOriginalName());
 
         if (!$fileType) {
@@ -23,9 +20,9 @@ class FilesController extends Controller
         $brokerPayload = [
             'file' => $fileType,
             'headers' => [
-                'uuid' => $uuid
+                'uuid' => $request->get('uuid'),
             ],
-            'payload' => $contents
+            'payload' => file_get_contents($file->getRealPath())
         ];
 
         return response()->json([], 200);
