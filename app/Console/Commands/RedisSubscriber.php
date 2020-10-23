@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\ParsedFile;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 class RedisSubscriber extends Command
@@ -31,10 +32,7 @@ class RedisSubscriber extends Command
     {
         Redis::subscribe(['ISSUES'], function ($message) {
             $message = json_decode($message);
-
-            dispatch(new ParsedFile($message));
-
-            echo $message;
+            return broadcast(new ParsedFile($message))->toOthers();
         });
     }
 }
