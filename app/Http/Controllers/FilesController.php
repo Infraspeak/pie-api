@@ -30,7 +30,7 @@ class FilesController extends Controller
         return response()->json([], 200);
     }
 
-    protected function getBrokerType($fileName): string
+    protected function getBrokerType($fileName)
     {
         switch ($fileName) {
             case 'composer.json':
