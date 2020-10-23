@@ -9,7 +9,8 @@ class FilesController extends Controller
     public function store(FileRequest $request)
     {
         $file = $request->file('file');
+        $contents = file_get_contents($file->getRealPath());
 
-        return response()->json(['file_name' => $file->getClientOriginalName()], 200);
+        return response()->json([], 200);
     }
 }
