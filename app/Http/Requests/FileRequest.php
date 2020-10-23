@@ -28,6 +28,10 @@ class FileRequest extends FormRequest
                 'required',
                 'file',
                 'mimetypes:application/json'
+            ],
+            'uuid' => [
+                'required',
+                'alpha_dash',
             ]
         ];
     }
