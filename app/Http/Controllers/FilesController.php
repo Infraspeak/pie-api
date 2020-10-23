@@ -25,13 +25,14 @@ class FilesController extends Controller
             'payload' => file_get_contents($file->getRealPath())
         ];
 
-        Redis::publish($brokerType, $brokerPayload);
+        Redis::publish($brokerType, json_encode($brokerPayload));
 
         return response()->json([], 200);
     }
 
     protected function getBrokerType($fileName)
     {
+        $brokerType = null;
         switch ($fileName) {
             case 'composer.json':
                 $brokerType = 'COMPOSER_FILE';
