@@ -10,6 +10,6 @@ class FilesController extends Controller
     {
         $file = $request->file('file');
 
-        return response()->json([]);
+        return response()->json(['file_name' => $file->getClientOriginalName()], 200);
     }
 }
