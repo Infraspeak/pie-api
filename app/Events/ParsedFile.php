@@ -13,30 +13,22 @@ class ParsedFile implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $uuid;
+    public $payload;
 
     public function __construct($message)
     {
-        $this->message = $message;
+        $this->uuid = $message->headers->uuid;
+        $this->payload = $message->payload;
     }
-
-//    /**
-//     * Get the channels the event should broadcast on.
-//     *
-//     * @return \Illuminate\Broadcasting\Channel|array
-//     */
-//    public function broadcastOn()
-//    {
-//        return new PresenceChannel('file-channel');
-//    }
 
     public function broadcastOn(): array
     {
-        return ['my-channel'];
+        return ['pie-'.$this->uuid];
     }
 
     public function broadcastAs(): string
     {
-        return 'my-event';
+        return 'parsed-file';
     }
 }

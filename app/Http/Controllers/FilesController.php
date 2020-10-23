@@ -22,7 +22,7 @@ class FilesController extends Controller
             'headers' => [
                 'uuid' => $request->get('uuid'),
             ],
-            'payload' => file_get_contents($file->getRealPath())
+            'payload' => json_decode(file_get_contents($file->getRealPath()))
         ];
 
         Redis::publish($brokerType, json_encode($brokerPayload));
@@ -40,6 +40,8 @@ class FilesController extends Controller
             case 'package.json':
                 $brokerType = 'NPM_FILE';
                 break;
+            default:
+                $brokerType = null;
         }
 
         return $brokerType;
