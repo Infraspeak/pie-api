@@ -14,5 +14,6 @@
 */
 
 $router->get('/', function () use ($router) {
+    return 'arroz';
     return $router->app->version();
 });
