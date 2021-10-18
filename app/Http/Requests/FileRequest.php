@@ -27,7 +27,7 @@ class FileRequest extends FormRequest
             'file' => [
                 'required',
                 'file',
-                'mimetypes:application/json'
+                //'mimetypes:application/json'
             ],
             'uuid' => [
                 'required',

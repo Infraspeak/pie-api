@@ -19,11 +19,15 @@ services:
     image: nginx:1.17-alpine
     container_name: api-nginx
     restart: unless-stopped
-    ports:
-      - 8000:80
     volumes:
       - ./:/var/www
       - ./.docker/nginx:/etc/nginx/conf.d
+    network_mode: "host"
+
+  infraspeak.redis:
+    image: redis:5.0.6-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
     network_mode: "host"
 
 
