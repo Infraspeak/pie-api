@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 docker run --rm -ti \
-    --network ${NETWORK:-infraspeak-pie} \
     --user $(id -u):$(id -g) \
     --volume /etc/passwd:/etc/passwd:ro \
     --volume /etc/group:/etc/group:ro \
