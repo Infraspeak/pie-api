@@ -7,7 +7,7 @@ services:
         user: api
         uid: 1000
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: .docker/php/8-fpm/Dockerfile
     image: infraspeak-pie/api
     restart: unless-stopped
     working_dir: /var/www/
