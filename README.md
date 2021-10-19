@@ -7,7 +7,9 @@ It will listen on another Redis queue for issues and send them to Pusher
 ```
 docker-compose build
 composer install
+cp .env.example .env
 ```
+Add your Pusher key and secret to variables `PUSHER_APP_*` in your `.env` file
 
 ## Project Run
 `docker-compose up`
