@@ -16,7 +16,7 @@ It will listen on another Redis queue for issues and send them to Pusher to be d
 ## Project Setup
 ```
 docker-compose build
-composer install
+docker run --rm -ti -v $(pwd):/app -w /app infraspeak-pie/api composer install
 cp .env.example .env
 php artisan key:generate
 ```
