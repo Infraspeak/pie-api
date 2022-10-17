@@ -30,7 +30,10 @@ class RedisSubscriber extends Command
      */
     public function handle()
     {
+        $this->info('Subscribing topic ISSUES');
+
         Redis::subscribe(['ISSUES'], function ($message) {
+            echo $message . \PHP_EOL;
             $message = json_decode($message);
             return broadcast(new ParsedFile($message))->toOthers();
         });

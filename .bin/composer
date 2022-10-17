@@ -1,9 +1,2 @@
 #!/usr/bin/env bash
-docker run --rm -ti \
-    --user $(id -u):$(id -g) \
-    --volume /etc/passwd:/etc/passwd:ro \
-    --volume /etc/group:/etc/group:ro \
-    --volume $(pwd):/app \
-    -w /app \
-    infraspeak-pie/api \
-    php /usr/bin/composer $@
+php /usr/bin/composer "$@"
