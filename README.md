@@ -18,13 +18,14 @@ It will listen on another Redis queue for issues and send them to Pusher to be d
 docker-compose build
 composer install
 cp .env.example .env
+php artisan key:generate
 ```
 Add your Pusher key and secret to variables `PUSHER_APP_*` in your `.env` file.
 
 ## Project Run
-`docker-compose up`
+`docker-compose up` or with `-d` flag to run in detached mode
 and on another terminal
-`PHP artisan redis:subscribe:issues`
+`php artisan redis:subscribe:issues`
 
 ## How it works
 An endpoint is exposed in `POST /API/files` expecting a `composer.json` or a `package.json` file and a unique identifier (UUID).
