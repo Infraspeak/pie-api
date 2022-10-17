@@ -14,7 +14,7 @@ This service receives a `composer.json` or a `package.json` via the API and inje
 It will listen on another Redis queue for issues and send them to Pusher to be displayed by the frontend.
 
 ## Project Setup
-The following commands assume you have `.direnv` installed and authiorized. Check how to do it [here](https://direnv.net/docs/installation.html)
+The following commands assume you have `.direnv` installed and authorized. Check how to do it [here](https://direnv.net/docs/installation.html)
 ```
 docker-compose build
 composer install
