@@ -10,6 +10,14 @@ use Tests\TestCase;
 
 class FilesControllerTest extends TestCase
 {
+    public function brokerTypeProvider(): array
+    {
+        return [
+            'Composer' => ['COMPOSER_FILE', 'composer.json'],
+            'Npm' => ['NPM_FILE', 'package.json']
+        ];
+    }
+
     /** @test */
     public function it_returns_invalid_file_if_broker_type_is_not_recognized(): void
     {
@@ -49,10 +57,13 @@ class FilesControllerTest extends TestCase
             ->assertStatus(ResponseAlias::HTTP_NO_CONTENT);
     }
 
-    /** @test */
-    public function it_publish_to_redis_in_the_correct_channel(): void
+    /**
+     * @dataProvider brokerTypeProvider
+     * @test
+     */
+    public function it_publish_to_redis_in_the_correct_channel(string $brokerType, string $filename): void
     {
-        $file = UploadedFile::fake()->create('composer.json', 1024);
+        $file = UploadedFile::fake()->create($filename, 1024);
 
         $payload = [
             'uuid' => Str::uuid(),
@@ -69,7 +80,7 @@ class FilesControllerTest extends TestCase
         Redis::partialMock()
             ->expects('publish')
             ->once()
-            ->with('COMPOSER_FILE', json_encode($brokerPayload));
+            ->with($brokerType, json_encode($brokerPayload));
 
         $this->postJson('api/files', $payload)
             ->assertStatus(ResponseAlias::HTTP_NO_CONTENT);
