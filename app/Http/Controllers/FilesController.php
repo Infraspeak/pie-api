@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FileRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redis;
+use Symfony\Component\HttpFoundation\Response;
 
 class FilesController extends Controller
 {
-    public function store(FileRequest $request): JsonResponse
+    public function store(FileRequest $request): Response
     {
         $file = $request->file('file');
         $brokerType = $this->getBrokerType($file->getClientOriginalName());
@@ -27,7 +26,7 @@ class FilesController extends Controller
 
         Redis::publish($brokerType, json_encode($brokerPayload));
 
-        return response()->json([], 200);
+        return response()->noContent();
     }
 
     protected function getBrokerType($fileName)
