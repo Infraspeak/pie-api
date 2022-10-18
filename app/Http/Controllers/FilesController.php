@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FileRequest;
 use Illuminate\Support\Facades\Redis;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class FilesController extends Controller
 {
-    public function store(FileRequest $request): BaseResponse
+    public function store(FileRequest $request): Response
     {
         $file = $request->file('file');
         $brokerType = $this->getBrokerType($file->getClientOriginalName());
 
         if (!$brokerType) {
-            return response()->json(['error' => 'Invalid file'], BaseResponse::HTTP_BAD_REQUEST);
+            return response()->json(['error' => 'Invalid file'], Response::HTTP_BAD_REQUEST);
         }
 
         $brokerPayload = [
