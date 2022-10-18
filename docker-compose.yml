@@ -16,7 +16,7 @@ services:
     networks:
       - infraspeak-pie
 
-  soketi:
+  infraspeak-pie.soketi:
     image: 'quay.io/soketi/soketi:latest-16-alpine'
     environment:
       SOKETI_DEBUG: '1'
