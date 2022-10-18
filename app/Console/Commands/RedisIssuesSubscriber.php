@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-class RedisSubscriber extends Command
+class RedisIssuesSubscriber extends Command
 {
     /**
      * The name and signature of the console command.
@@ -21,12 +21,11 @@ class RedisSubscriber extends Command
      *
      * @var string
      */
-    protected $description = 'Subscribe to a Redis channel';
+    protected $description = 'Subscribe to the Redis ISSUES channel';
 
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
     public function handle()
     {

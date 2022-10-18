@@ -32,7 +32,6 @@ class FilesController extends Controller
 
     protected function getBrokerType($fileName)
     {
-        $brokerType = null;
         switch ($fileName) {
             case 'composer.json':
                 $brokerType = 'COMPOSER_FILE';

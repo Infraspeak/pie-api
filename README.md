@@ -42,11 +42,10 @@ Depending on the received file, the endpoint will inject the file content in one
 }
 ```
 
+Both queues are being listened to by other services that will process them. The UUID will also be propagated, as it identifies the Pusher WebSocket that should receive the parsed files later on.
 
-Both queues are being listened to by other services that will process them.
-The UUID will also be propagated, as it identifies the Pusher WebSocket that should receive the parsed files later on.
+A command, `php artisan redis:subscribe:issues` will be listening to the `ISSUES` Redis queue that should receive messages in the following format:
 
-A command, `PHP artisan redis:subscribe:issues` will be listening to the `ISSUES` Redis queue that should receive messages in the following format:
 ```json
 {
    "headers":{
@@ -69,6 +68,24 @@ A command, `PHP artisan redis:subscribe:issues` will be listening to the `ISSUES
             ],
             "id":"",
             "date_opened":""
+         }
+      ]
+   }
+}
+```
+
+A command, `php artisan redis:subscribe:errors` will be listening to the `APP_ERRORS` Redis queue that should receive messages with errors in the following format:
+
+```json
+{
+   "headers":{
+      // uuid identifier
+   },
+   "payload":{
+      "errors": [
+         {
+            "code":"",
+            "description":""
          }
       ]
    }
